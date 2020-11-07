@@ -16,7 +16,19 @@ class Movies extends React.Component {
       <ul className="movies">
         {this.props.movies.map((movie) => {
           return (
-            <li className="movie_item">
+            <li
+              className="movie_item"
+              onClick={() => {
+                this.props.showFaves
+                  ? this.props
+                      .deleteMovie(movie)
+                      .then(() => this.props.getFavMovies())
+                  : this.props.saveMovie(movie).then(() => {
+                      alert('movie saved!');
+                      this.props.getFavMovies();
+                    });
+              }}
+            >
               <img
                 src={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`}
               />

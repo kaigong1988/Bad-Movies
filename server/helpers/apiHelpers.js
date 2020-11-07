@@ -25,6 +25,13 @@ let SearchGenreMovies = (genreID) => {
   };
   return axios(options);
 };
-
+let getMovies = () => {
+  let options = {
+    type: 'GET',
+    url: `https://api.themoviedb.org/3/discover/movie?api_key=${apikey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=2020-10-22`,
+  };
+  return axios(options);
+};
+module.exports.getMovies = getMovies;
 module.exports.SearchGenreMovies = SearchGenreMovies;
 module.exports.getGenres = getGenres;
