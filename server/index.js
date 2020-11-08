@@ -7,12 +7,13 @@ const {
   SearchGenreMovies,
   getMovies,
 } = require('./helpers/apiHelpers.js');
-const {
-  db,
-  showMovies,
-  saveMovie,
-  deleteMovie,
-} = require('../db/sql/index.js');
+// const {
+//   db,
+//   showMovies,
+//   saveMovie,
+//   deleteMovie,
+// } = require('../db/sql/index.js');
+const { db, save, deleteMovie, showMovies } = require('../db/mongodb/index.js');
 
 // Sign up and get your moviedb API key here:
 // https://www.themoviedb.org/account/signup
@@ -81,6 +82,8 @@ app.get('/search', function (req, res) {
     })
     .catch((err) => console.log(err));
 });
+
+//************** DATABASE *****************/
 app.get('/movies', function (req, res) {
   // find all saved favorite movies
   showMovies().then((results) => {
@@ -90,7 +93,16 @@ app.get('/movies', function (req, res) {
 
 app.post('/save', function (req, res) {
   //save movie as favorite into the database
-  saveMovie(req.body)
+  // mySQL method:
+  // saveMovie(req.body)
+  //   .then(() => {
+  //     res.sendStatus(200);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+  // mongodb method:
+  save(req.body)
     .then(() => {
       res.sendStatus(200);
     })
